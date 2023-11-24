@@ -132,20 +132,17 @@ def validate_terms(terms: list[str]) -> bool:
     Validate the terms of the equation
     """
     # Check if the terms syntax are valid
-    # regx = get_polynom_regex()
-    # for term in terms:
-    # 	if re.fullmatch(regx[0], term):
-    # 		print("term: ", term, " matches 0:", regx[0])
-    # 	elif re.fullmatch(regx[1], term):
-    # 		print("term: ", term, " matches 1:", regx[1])
-    # 	elif re.fullmatch(regx[2], term):
-    # 		print("term: ", term, " matches 2:", regx[2])
-    # 	if (re.fullmatch(regx[0], term) is None
-    # 				and re.fullmatch(regx[1], term) is None
-    # 				and re.fullmatch(regx[2], term) is None):
-    # 		print("error [", term, "]", sep="")
-    # 		return False
-    return True
+    regx = get_polynom_regex()
+    for term in terms:
+        if (
+            re.fullmatch(regx[0], term) is None
+            and re.fullmatch(regx[1], term) is None
+            and re.fullmatch(regx[2], term) is None
+        ):
+            return False
+    if terms != []:
+        return True
+    return False
 
 
 def reduce(left: dict, right: dict) -> dict:
