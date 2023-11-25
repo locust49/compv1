@@ -2,22 +2,13 @@ import argparse
 import re
 
 
-# def get_polynom_regex() -> list[str]:
-# 	"""
-# 	:return: list of regexes for polynom
-# 	"""
-# 	return [r"(-?\d+\.\d+|-?\d+)?x\^(-?\d+\.\d+|-?(\d+))",
-# 									r"(-?\d+\.\d+|-?\d+)x",
-# 									r"(-?\d+\.\d+|-?\d+)"]
-
-
-def get_polynom_regex() -> list[str]:  # including fractions in coefficients
+def get_polynom_regex() -> list[str]:
     """
     :return: list of regexes for polynom
     """
     return [
-        r"([-+])?(\d*\.\d+|[-+]?\d+(/\d+)?)?x\^([-+]?\d*\.\d+|[-+]?\d+)",
-        r"(-?\d+\.\d+|-?\d+)x",
+        r"([-+])?(\d*\.\d+|[-+]?\d+(/\d+)?)?x\^([+]?\d+)",
+        r"(-?\d+\.\d+|-?\d+)?x",
         r"(-?\d+\.\d+|-?\d+)",
     ]
 
@@ -419,6 +410,8 @@ if __name__ == "__main__":
     right_terms = reformulate_equation_part(right_equation_part)
     if left_terms is None or right_terms is None:
         print("Invalid equation syntax.")
+        print("Every term should respect the form : a * x ^ p")
+        print("with 'a' decimal, and 'p' a positive integer. (in this order)")
         exit(1)
     equation_dict = reduce(left_terms, right_terms)
     solved = solve(print_details, equation_dict)
